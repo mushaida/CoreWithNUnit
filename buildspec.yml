@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  variables:
+    PROJECT: CoreWithNUnit
+    DOTNET: 2.1
+phases:
+    install:
+        runtime-versions:
+            dotnet: 2.1
+        
+    build:
+        commands:
+           - echo Build started  on `date`
+           - dotnet restore
+           - dotnet build -c Release ./CoreWithNUnit/CoreWithNUnit.csproj
+           - dotnet publish -c release -o ./build_output CoreWithNUnit/CoreWithNUnit.csproj
+          # - dotnet test -c Release ./CoreWithNUnit.Test/CoreWithNUnit.Test.csproj
+           #- nuget restore
+           #- dotnet vstest CoreWithNUnit.Test/bin/Debug/netcoreapp2.1/CoreWithNUnit.Test.dll
+           
+artifacts:
+ files:
+    - CoreWithNUnit/build_output/**/*
+    - scripts/**/*
+    - appspec.yml    
